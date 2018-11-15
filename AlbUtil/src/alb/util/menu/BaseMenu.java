@@ -43,12 +43,20 @@ public abstract class BaseMenu implements Action{
 	}
 
 	protected void processOption(int option) throws Exception {
-		if (option == EXIT) return;
-		if (option < 0) return;
-		if (option > actions.size()) return;
+		if (option == EXIT) {
+			return;
+		}
+		if (option < 0) {
+			return;
+		}
+		if (option > actions.size()) {
+			return;
+		}
 		
 		Class<Action> actionClass = actions.get(option - 1);
-		if (actionClass == null) return;
+		if (actionClass == null) {
+			return;
+		}
 		
 		createInstanceOf( actionClass ).execute();
 	}
@@ -107,7 +115,7 @@ public abstract class BaseMenu implements Action{
 
 	@SuppressWarnings("unchecked")
 	private void fillActions() {
-		actions = new ArrayList<Class<Action>>();
+		actions = new ArrayList<>();
 		
 		for(Object[] row : menuOptions) {
 			if (row[1] != null) {
@@ -116,12 +124,12 @@ public abstract class BaseMenu implements Action{
 		}
 	}
 
-	@SuppressWarnings("deprecation") 
+//	@SuppressWarnings("deprecation") 
 	private Action createInstanceOf(Class<Action> clazz) {
 		try {
 			// deprecated as of Java 9 
 			// in future versions will be --> clazz.getConstructor().newInstance()
-			return (Action) clazz.newInstance();
+			return clazz.newInstance();
 			
 		} catch (InstantiationException e) {
 			throw new RuntimeException(e);

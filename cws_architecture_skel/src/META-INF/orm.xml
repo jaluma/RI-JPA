@@ -5,6 +5,8 @@
   	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
   	version="2.0">
 
+	<package>uo.ri.model</package>
+	
 	<!-- Averia quieries --> 
 	<named-query name="Averia.findByIds">
 		<query>select a from uo.ri.model.Averia a where a.id in ?1</query>
@@ -59,7 +61,7 @@
 		<query>
 			select m 
 			from uo.ri.model.Mecanico m
-				join m.contratos c
+				join m.contracts c
 			where c.status = uo.ri.model.types.ContratoStatus.ACTIVE
 		</query>
 	</named-query>
@@ -68,7 +70,7 @@
 		<query>
 			select m 
 			from uo.ri.model.Mecanico m
-				join m.contratos c
+				join m.contracts c
 			where c.status = uo.ri.model.types.ContratoStatus.ACTIVE or 
 				c.endDate between ?1 and ?2
 		</query>
@@ -167,7 +169,7 @@
 
 	<!-- DEFINICION DE LAS ENTIDADES -->
 
-	<entity class="uo.ri.model.Averia">
+	<entity access="FIELD" class="uo.ri.model.Averia">
 		<table name="TAverias">
 			<unique-constraint>
 				<column-name>FECHA</column-name>
@@ -201,7 +203,7 @@
 		</attributes>
 	</entity>
 
-	<entity class="uo.ri.model.Cargo">
+	<entity access="FIELD" class="uo.ri.model.Cargo">
 		<table name="TCargos">
 			<unique-constraint>
 				<column-name>FACTURA_ID</column-name>
@@ -217,7 +219,7 @@
 		</attributes>
 	</entity>
 
-	<entity class="uo.ri.model.Cliente" name="TClientes">
+	<entity access="FIELD" class="uo.ri.model.Cliente" name="TClientes">
 		<attributes>
 			<id name="id">
 				<generated-value strategy="IDENTITY" />
@@ -232,7 +234,7 @@
 		</attributes>
 	</entity>
 
-	<entity class="uo.ri.model.Factura" name="TFacturas">
+	<entity access="FIELD" class="uo.ri.model.Factura" name="TFacturas">
 		<attributes>
 			<id name="id">
 				<generated-value strategy="IDENTITY" />
@@ -253,7 +255,7 @@
 		</attributes>
 	</entity>
 
-	<entity class="uo.ri.model.Intervencion">
+	<entity access="FIELD" class="uo.ri.model.Intervencion">
 		<table name="TIntervenciones">
 			<unique-constraint>
 				<column-name>AVERIA_ID</column-name>
@@ -271,7 +273,7 @@
 		</attributes>
 	</entity>
 
-	<entity class="uo.ri.model.Mecanico" name="TMecanicos">
+	<entity access="FIELD" class="uo.ri.model.Mecanico" name="TMecanicos">
 		<attributes>
 			<id name="id">
 				<generated-value strategy="IDENTITY" />
@@ -280,16 +282,16 @@
 				<column unique="true" />
 			</basic>
 
-			<one-to-many name="averias" target-entity="uo.ri.model.Averia"
+			<one-to-many name="asignadas" target-entity="uo.ri.model.Averia"
 				mapped-by="mecanico" />
 			<one-to-many name="intervenciones" target-entity="uo.ri.model.Intervencion"
 				mapped-by="mecanico" />
-			<one-to-many name="contratos" target-entity="uo.ri.model.Contract"
+			<one-to-many name="contracts" target-entity="uo.ri.model.Contract"
 				mapped-by="mechanic" />
 		</attributes>
 	</entity>
 
-	<entity class="uo.ri.model.MedioPago" name="TMediosPago">
+	<entity access="FIELD" class="uo.ri.model.MedioPago" name="TMediosPago">
 		<inheritance strategy="JOINED" />
 		<attributes>
 			<id name="id">
@@ -301,9 +303,9 @@
 		</attributes>
 	</entity>
 
-	<entity class="uo.ri.model.Metalico" name="TMetalico" />
+	<entity access="FIELD" class="uo.ri.model.Metalico" name="TMetalico" />
 
-	<entity class="uo.ri.model.Repuesto" name="TRepuestos">
+	<entity access="FIELD" class="uo.ri.model.Repuesto" name="TRepuestos">
 		<attributes>
 			<id name="id">
 				<generated-value strategy="IDENTITY" />
@@ -317,7 +319,7 @@
 		</attributes>
 	</entity>
 
-	<entity class="uo.ri.model.Sustitucion">
+	<entity access="FIELD" class="uo.ri.model.Sustitucion">
 		<table name="TSustituciones">
 			<unique-constraint>
 				<column-name>REPUESTO_ID</column-name>
@@ -333,7 +335,7 @@
 		</attributes>
 	</entity>
 
-	<entity class="uo.ri.model.TarjetaCredito" name="TTarjetasCredito">
+	<entity access="FIELD" class="uo.ri.model.TarjetaCredito" name="TTarjetasCredito">
 
 		<attributes>
 			<basic name="numero">
@@ -345,7 +347,7 @@
 		</attributes>
 	</entity>
 
-	<entity class="uo.ri.model.TipoVehiculo" name="TTiposVehiculo">
+	<entity access="FIELD" class="uo.ri.model.TipoVehiculo" name="TTiposVehiculo">
 		<attributes>
 			<id name="id">
 				<generated-value strategy="IDENTITY" />
@@ -355,11 +357,11 @@
 			</basic>
 
 			<one-to-many name="vehiculos" target-entity="uo.ri.model.Vehiculo"
-				mapped-by="tipoVehiculo" />
+				mapped-by="tipo" />
 		</attributes>
 	</entity>
 
-	<entity class="uo.ri.model.Vehiculo" name="TVehiculos">
+	<entity access="FIELD" class="uo.ri.model.Vehiculo" name="TVehiculos">
 		<attributes>
 			<id name="id">
 				<generated-value strategy="IDENTITY" />
@@ -373,7 +375,7 @@
 			</basic>
 
 			<many-to-one name="cliente" target-entity="uo.ri.model.Cliente" />
-			<many-to-one name="tipoVehiculo" target-entity="uo.ri.model.TipoVehiculo">
+			<many-to-one name="tipo" target-entity="uo.ri.model.TipoVehiculo">
 				<join-column name="TIPO_ID" />
 			</many-to-one>
 			<one-to-many name="averias" target-entity="uo.ri.model.Averia"
@@ -383,7 +385,7 @@
 
 	<!-- AMPLIACION -->
 
-	<entity class="uo.ri.model.ContractType" name="TTipoContratos">
+	<entity access="FIELD" class="uo.ri.model.ContractType" name="TTipoContratos">
 		<attributes>
 			<id name="id">
 				<column name="TIPO_ID"/>
@@ -392,7 +394,7 @@
 			<basic name="name">
 				<column name="NOMBRE" unique="true" />
 			</basic>
-			<basic name="compensationDaysPerYear">
+			<basic name="compensationDays">
 				<column name="DIAS_COMPENSACION_POR_AÑO"/>
 			</basic>
 
@@ -401,7 +403,7 @@
 		</attributes>
 	</entity>
 
-	<entity class="uo.ri.model.ContractCategory" name="TCategoriaContratos">
+	<entity access="FIELD" class="uo.ri.model.ContractCategory" name="TCategoriaContratos">
 		<attributes>
 			<id name="id">
 				<column name="CATEGORIA_ID"/>
@@ -423,7 +425,7 @@
 		</attributes>
 	</entity>
 
-	<entity class="uo.ri.model.Contract" name="TContratos">
+	<entity access="FIELD" class="uo.ri.model.Contract" name="TContratos">
 		<attributes>
 			<id name="id">
 				<column name="CONTRATO_ID"/>
@@ -474,7 +476,7 @@
 	</entity>
 
 
-	<entity class="uo.ri.model.Payroll" name="TNominas">
+	<entity access="FIELD" class="uo.ri.model.Payroll" name="TNominas">
 		<attributes>
 			<id name="id">
 				<column name="NOMINA_ID"/>
@@ -505,7 +507,7 @@
 			<basic name="discountTotal">
 				<column name="TOTAL_DESCUENTOS"/>
 			</basic>
-			<basic name="netoTotal">
+			<basic name="netTotal">
 				<column name="TOTAL_NETO"/>
 			</basic>
 			<many-to-one name="contract" target-entity="uo.ri.model.Contract" >

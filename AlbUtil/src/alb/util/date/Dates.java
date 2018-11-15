@@ -96,7 +96,8 @@ public class Dates {
 	}
 
 	public static Date rndDateBefore(Date baseDate, int dias) {
-		return subDays(baseDate, rnd(1, dias));
+		Date d = subDays(baseDate, rnd(1, dias));
+		return new Date( d.getTime() - rnd(0, 10000) );
 	}
 
 	public static String toString(Date date) {

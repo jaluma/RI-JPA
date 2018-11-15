@@ -12,9 +12,9 @@ public class Mecanico {
 	private String apellidos;
 	private String nombre;
 
-	private Set<Averia> averias = new HashSet<>();
+	private Set<Averia> asignadas = new HashSet<>();
 	private Set<Intervencion> intervenciones = new HashSet<>();
-	private Set<Contract> contratos = new HashSet<>();
+	private Set<Contract> contracts = new HashSet<>();
 
 	Mecanico() {
 	}
@@ -33,12 +33,8 @@ public class Mecanico {
 		return id;
 	}
 
-	Set<Contract> _getContratos() {
-		return contratos;
-	}
-
-	public Set<Contract> getContratos() {
-		return new HashSet<>(contratos);
+	Set<Contract> _getContracts() {
+		return contracts;
 	}
 
 	Set<Intervencion> _getIntervenciones() {
@@ -49,15 +45,15 @@ public class Mecanico {
 		return new HashSet<>(intervenciones);
 	}
 
-	Set<Averia> getAverias() {
-		return averias;
+	Set<Averia> _getAsignadas() {
+		return asignadas;
 	}
 
 	@Override
 	public String toString() {
 		return "Mecanico [dni=" + dni + ", apellidos=" + apellidos + ", nombre="
-				+ nombre + ", averias=" + averias + ", intervenciones="
-				+ intervenciones + ", contratos=" + contratos + "]";
+				+ nombre + ", asignadas=" + asignadas + ", intervenciones="
+				+ intervenciones + ", contracts=" + contracts + "]";
 	}
 
 	public String getDni() {
@@ -98,15 +94,15 @@ public class Mecanico {
 	}
 
 	public Set<Averia> getAsignadas() {
-		return new HashSet<>(averias);
+		return new HashSet<>(asignadas);
 	}
 
 	public Set<Contract> getContracts() {
-		return new HashSet<>(contratos);
+		return new HashSet<>(contracts);
 	}
 
 	public Contract getActiveContract() {
-		for (Contract contract : contratos) {
+		for (Contract contract : contracts) {
 			if (contract.getStatus() != null && contract.getStatus().equals(ContratoStatus.ACTIVE)) {
 				return contract;
 			}
@@ -123,7 +119,7 @@ public class Mecanico {
 	}
 
 	public Contract getLastContract() {
-		return contratos.stream().sorted((o1, o2) -> o2.getEndDate().compareTo(o1.getEndDate())).findFirst().get();
+		return contracts.stream().sorted((o1, o2) -> o2.getEndDate().compareTo(o1.getEndDate())).findFirst().get();
 	}
 
 	

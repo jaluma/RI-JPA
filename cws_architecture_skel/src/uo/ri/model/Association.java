@@ -92,11 +92,11 @@ public class Association {
 
 		public static void link(Mecanico mecanico, Averia averia) {
 			averia._setMecanico(mecanico);
-			mecanico.getAverias().add(averia);
+			mecanico._getAsignadas().add(averia);
 		}
 
 		public static void unlink(Mecanico mecanico, Averia averia) {
-			mecanico.getAverias().remove(averia);
+			mecanico._getAsignadas().remove(averia);
 			averia._setMecanico(null);
 		}
 	}
@@ -160,11 +160,11 @@ public class Association {
 	public static class Hire {
 		public static void link(Contract contract, Mecanico mecanico) {
 			contract._setMechanic(mecanico);
-			mecanico._getContratos().add(contract);
+			mecanico._getContracts().add(contract);
 		}
 
 		public static void unlink(Contract contract) {
-			contract.getMechanic()._getContratos().remove(contract);
+			contract.getMechanic()._getContracts().remove(contract);
 			contract._setMechanic(null);
 		}
 	}
