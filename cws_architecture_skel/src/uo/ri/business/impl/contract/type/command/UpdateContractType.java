@@ -13,6 +13,10 @@ public class UpdateContractType implements Command<Void> {
 	private ContractTypeDto dto;
 	private TipoContratoRepository repo = Factory.repository.forTipoContrato();
 
+	/**
+	 * Constructor que permite actualizar el tipo de contrato
+	 * @param dto con los datos a actualizar 
+	 */
 	public UpdateContractType(ContractTypeDto dto) {
 		this.dto = dto;
 	}
@@ -33,13 +37,23 @@ public class UpdateContractType implements Command<Void> {
 		return null;
 	}
 
+	/**
+	 * Comprueba que el tipo exista
+	 * @param t con la información del contrato 
+	 * @throws BusinessException en caso de que el contrato ya exista
+	 */
 	private void checkExistType(ContractType t) throws BusinessException {
 		BusinessCheck.isTrue(t != null, "El tipo de contrato no existe");
 	}
 
-	private void checkNegativeValues(double ContractType)
+	/**
+	 * Compruba que la compensacion no sea negativa
+	 * @param compensationDays a actualizar
+	 * @throws BusinessException en caso de que la compensacion sea negativa
+	 */
+	private void checkNegativeValues(double compensationDays)
 			throws BusinessException {
-		BusinessCheck.isFalse(ContractType < 0,
+		BusinessCheck.isFalse(compensationDays < 0,
 				"La compensación por día no puede ser negativa.");
 	}
 

@@ -12,6 +12,10 @@ public class DeleteLastPayrollForMechanicId implements Command<Void> {
 	private Long idMecanico;
 	private NominaRepository repoNomina = Factory.repository.forNomina();
 
+	/**
+	 * Constructor que permite borrar la última nomina de un mecanico
+	 * @param idMecanico del mecanico
+	 */
 	public DeleteLastPayrollForMechanicId(Long idMecanico) {
 		this.idMecanico = idMecanico;
 	}
@@ -31,6 +35,11 @@ public class DeleteLastPayrollForMechanicId implements Command<Void> {
 		return null;
 	}
 
+	/**
+	 * Comprueba que la nomian se puede borrar
+	 * @param p la nomina
+	 * @throws BusinessException en caso de que no tenga nominas
+	 */
 	private void checkCanBeDelete(Payroll p) throws BusinessException {
 		BusinessCheck.isNotNull(p, "El empleado no tiene nominas.");
 	}

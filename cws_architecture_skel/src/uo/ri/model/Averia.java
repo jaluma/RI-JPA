@@ -20,9 +20,16 @@ public class Averia {
 	private Mecanico mecanico;
 	private Set<Intervencion> intervenciones = new HashSet<>();
 
+	/*
+	 * Constructor usado por el mapper
+	 */
 	Averia() {
 	}
 
+	/**
+	 * Constructor de averia
+	 * @param vehiculo a vincular
+	 */
 	public Averia(Vehiculo vehiculo) {
 		super();
 		this.vehiculo = vehiculo;
@@ -30,41 +37,121 @@ public class Averia {
 		Association.Averiar.link(vehiculo, this);
 	}
 
+	/**
+	 * Constructor de averia
+	 * @param vehiculo a vincular
+	 * @param descripcion descripcion de la averia
+	 */
 	public Averia(Vehiculo vehiculo, String descripcion) {
 		this(vehiculo);
 		this.descripcion = descripcion;
 	}
-
-	public Long getId() {
-		return id;
-	}
-
+	
+	/**
+	 * Getter usado en la asociacion
+	 * @return set de intervenciones
+	 */
 	Set<Intervencion> _getIntervenciones() {
 		return intervenciones;
 	}
 
-	public Set<Intervencion> getIntervenciones() {
-		return new HashSet<>(intervenciones);
-	}
-
+	/**
+	 * Setter usado en la asociacion
+	 */
 	void _setMecanico(Mecanico mecanico) {
 		this.mecanico = mecanico;
 	}
 
+	/**
+	 * Setter usado en la asociacion
+	 */
 	void _setFactura(Factura factura) {
 		this.factura = factura;
 	}
 
+	/**
+	 * Setter usado en la asociacion
+	 */
 	void _setVehiculo(Vehiculo vehiculo) {
 		this.vehiculo = vehiculo;
 	}
-
-	@Override
-	public String toString() {
-		return "Averia [descripcion=" + descripcion + ", fecha=" + fecha + ", importe=" + importe + ", status=" + status
-				+ ", vehiculo=" + vehiculo + "]";
+	
+	/**
+	 * Getter de ID
+	 * @return la id
+	 */
+	public Long getId() {
+		return id;
+	}
+	
+	/**
+	 * Getter de intervenciones
+	 * @return set de intervenciones
+	 */
+	public Set<Intervencion> getIntervenciones() {
+		return new HashSet<>(intervenciones);
 	}
 
+	/**
+	 * Getter de descripcion
+	 * @return la descripcion
+	 */
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	/**
+	 * Getter de fecha
+	 * @return la fecha
+	 */
+	public Date getFecha() {
+		return new Date(fecha.getTime());
+	}
+
+	/**
+	 * Getter de importe
+	 * @return el importe
+	 */
+	public double getImporte() {
+		return importe;
+	}
+
+	/**
+	 * Getter de estado de la averia
+	 * @return es el estado de la averia
+	 */
+	public AveriaStatus getStatus() {
+		return status;
+	}
+
+	/**
+	 * Getter de vehiculo
+	 * @return el vehiculo
+	 */
+	public Vehiculo getVehiculo() {
+		return vehiculo;
+	}
+
+	/**
+	 * Getter de factura
+	 * @return la factura
+	 */
+	public Factura getFactura() {
+		return factura;
+	}
+
+	/**
+	 * Getter de mecanico
+	 * @return el mecanico
+	 */
+	public Mecanico getMecanico() {
+		return mecanico;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -74,6 +161,10 @@ public class Averia {
 		return result;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -96,28 +187,14 @@ public class Averia {
 		return true;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public Date getFecha() {
-		return new Date(fecha.getTime());
-	}
-
-	public double getImporte() {
-		return importe;
-	}
-
-	public AveriaStatus getStatus() {
-		return status;
-	}
-
-	public Vehiculo getVehiculo() {
-		return vehiculo;
-	}
-
-	public Factura getFactura() {
-		return factura;
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Averia [descripcion=" + descripcion + ", fecha=" + fecha + ", importe=" + importe + ", status=" + status
+				+ ", vehiculo=" + vehiculo + "]";
 	}
 
 	/**
@@ -231,10 +308,6 @@ public class Averia {
 			Association.Asignar.unlink(mecanico, this);
 			status = AveriaStatus.ABIERTA;
 		}
-	}
-
-	public Mecanico getMecanico() {
-		return mecanico;
 	}
 
 }

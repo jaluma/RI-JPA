@@ -31,6 +31,11 @@ import uo.ri.model.TarjetaCredito;
 
 public class DtoAssembler {
 
+	/**
+	 * Convierte un cliente en una dto de cliente
+	 * @param c cliente
+	 * @return dto del cliente dado
+	 */
 	public static ClientDto toDto(Cliente c) {
 		ClientDto dto = new ClientDto();
 
@@ -42,6 +47,11 @@ public class DtoAssembler {
 		return dto;
 	}
 
+	/**
+	 * Convierte una lista de clientes to una lista de dtos
+	 * @param clientes lista
+	 * @return lista de dtos
+	 */
 	public static List<ClientDto> toClientDtoList(List<Cliente> clientes) {
 		List<ClientDto> res = new ArrayList<>();
 		for (Cliente c : clientes) {
@@ -50,6 +60,11 @@ public class DtoAssembler {
 		return res;
 	}
 
+	/**
+	 * Convierte un mecanico en una dto de mecanico
+	 * @param m mecanico
+	 * @return dto del mecanico dado
+	 */
 	public static MechanicDto toDto(Mecanico m) {
 		MechanicDto dto = new MechanicDto();
 		dto.id = m.getId();
@@ -59,6 +74,11 @@ public class DtoAssembler {
 		return dto;
 	}
 
+	/**
+	 * Convierte una lista de mecanicos to una lista de dtos
+	 * @param list lista
+	 * @return lista de dtos
+	 */
 	public static List<MechanicDto> toMechanicDtoList(List<Mecanico> list) {
 		List<MechanicDto> res = new ArrayList<>();
 		for (Mecanico m : list) {
@@ -67,6 +87,11 @@ public class DtoAssembler {
 		return res;
 	}
 
+	/**
+	 * Convierte una lista de clientes to una lista de dtos
+	 * @param clientes lista
+	 * @return lista de dtos
+	 */
 	public static List<VoucherDto> toVoucherDtoList(List<Bono> list) {
 		List<VoucherDto> res = new ArrayList<>();
 		for (Bono b : list) {
@@ -75,6 +100,11 @@ public class DtoAssembler {
 		return res;
 	}
 
+	/**
+	 * Convierte un bono en una dto de bono
+	 * @param b bono
+	 * @return dto del bono dado
+	 */
 	public static VoucherDto toDto(Bono b) {
 		VoucherDto dto = new VoucherDto();
 		dto.id = b.getId();
@@ -86,6 +116,11 @@ public class DtoAssembler {
 		return dto;
 	}
 
+	/**
+	 * Convierte un tarjeta en una dto de tarjeta
+	 * @param tc tarjeta
+	 * @return dto del tarjeta dado
+	 */
 	public static CardDto toDto(TarjetaCredito tc) {
 		CardDto dto = new CardDto();
 		dto.id = tc.getId();
@@ -97,6 +132,11 @@ public class DtoAssembler {
 		return dto;
 	}
 
+	/**
+	 * Convierte un metalico en una dto de metalico
+	 * @param m metalico
+	 * @return dto del metalico dado
+	 */
 	public static CashDto toDto(Metalico m) {
 		CashDto dto = new CashDto();
 		dto.id = m.getId();
@@ -105,6 +145,11 @@ public class DtoAssembler {
 		return dto;
 	}
 
+	/**
+	 * Convierte una factura en una dto de factura
+	 * @param factura factura
+	 * @return dto del factura dado
+	 */
 	public static InvoiceDto toDto(Factura factura) {
 		InvoiceDto dto = new InvoiceDto();
 		dto.id = factura.getId();
@@ -116,10 +161,20 @@ public class DtoAssembler {
 		return dto;
 	}
 
+	/**
+	 * Convierte una lista de medios de pago to una lista de dtos
+	 * @param list lista
+	 * @return lista de dtos
+	 */
 	public static List<PaymentMeanDto> toPaymentMeanDtoList(List<MedioPago> list) {
 		return list.stream().map(mp -> toDto(mp)).collect(Collectors.toList());
 	}
 
+	/**
+	 * Convierte un medio de pago en una dto de medio de pago
+	 * @param mp medio de pago
+	 * @return dto del medio de pago dado
+	 */
 	private static PaymentMeanDto toDto(MedioPago mp) {
 		if (mp instanceof Bono) {
 			return toDto((Bono) mp);
@@ -132,10 +187,20 @@ public class DtoAssembler {
 		}
 	}
 
+	/**
+	 * Convierte una lista de averia to una lista de dtos
+	 * @param list lista
+	 * @return lista de dtos
+	 */
 	public static List<BreakdownDto> toBreakdownDtoList(List<Averia> list) {
 		return list.stream().map(a -> toDto(a)).collect(Collectors.toList());
 	}
 
+	/**
+	 * Convierte una averia en una dto de averia
+	 * @param mp averia
+	 * @return dto de averia dado
+	 */
 	public static BreakdownDto toDto(Averia a) {
 		BreakdownDto dto = new BreakdownDto();
 		dto.id = a.getId();
@@ -148,6 +213,11 @@ public class DtoAssembler {
 		return dto;
 	}
 
+	/**
+	 * Convierte un contrato en una dto de contrato
+	 * @param c contrato
+	 * @return dto del contrato dado
+	 */
 	public static ContractDto toDto(Contract c) {
 		ContractDto dto = new ContractDto();
 		dto.mechanicId = c.getMechanic().getId();
@@ -166,10 +236,20 @@ public class DtoAssembler {
 		return dto;
 	}
 
+	/**
+	 * Convierte una lista de contratos to una lista de dtos
+	 * @param list lista
+	 * @return lista de dtos
+	 */
 	public static List<ContractDto> toContractDtoList(List<Contract> list) {
 		return list.stream().map(c -> toDto(c)).collect(Collectors.toList());
 	}
 
+	/**
+	 * Convierte una categoria de contrato en una dto de categoria de contrato
+	 * @param c categoria de contrato
+	 * @return dto de categoria de contrato dado
+	 */
 	public static ContractCategoryDto toDto(ContractCategory c) {
 		ContractCategoryDto dto = new ContractCategoryDto();
 		dto.id = c.getId();
@@ -179,10 +259,20 @@ public class DtoAssembler {
 		return dto;
 	}
 
+	/**
+	 * Convierte una lista de categorias de contrato to una lista de dtos
+	 * @param list lista
+	 * @return lista de dtos
+	 */
 	public static List<ContractCategoryDto> toContractCategoryDtoList(List<ContractCategory> list) {
 		return list.stream().map(c -> toDto(c)).collect(Collectors.toList());
 	}
 
+	/**
+	 * Convierte un tipo de contrato en una dto de tipo de contrato
+	 * @param c tipo de ocntrato
+	 * @return dto del tipo de contrato dado
+	 */
 	public static ContractTypeDto toDto(ContractType c) {
 		ContractTypeDto dto = new ContractTypeDto();
 		dto.id = c.getId();
@@ -191,10 +281,20 @@ public class DtoAssembler {
 		return dto;
 	}
 
+	/**
+	 * Convierte una lista de tipo de contratos to una lista de dtos
+	 * @param list lista
+	 * @return lista de dtos
+	 */
 	public static List<ContractTypeDto> toContractTypeDtoList(List<ContractType> list) {
 		return list.stream().map(t -> toDto(t)).collect(Collectors.toList());
 	}
 
+	/**
+	 * Convierte una nomina en una dto de nomina
+	 * @param p nomina
+	 * @return dto de la nomina dada
+	 */
 	public static PayrollDto toDto(Payroll p) {
 		PayrollDto dto = new PayrollDto();
 		dto.id = p.getId();
@@ -212,6 +312,11 @@ public class DtoAssembler {
 		return dto;
 	}
 
+	/**
+	 * Convierte una lista de medios de pago to una lista de dtos
+	 * @param list lista
+	 * @return lista de dtos
+	 */
 	public static List<PayrollDto> toPayrollDtoList(List<Payroll> list) {
 		return list.stream().map(p -> toDto(p)).collect(Collectors.toList());
 	}

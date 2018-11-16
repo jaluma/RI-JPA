@@ -13,6 +13,10 @@ public class FindMechanicById implements Command<MechanicDto> {
 	private Long id;
 	private MecanicoRepository repo = Factory.repository.forMechanic();
 
+	/**
+	 * Contructor que busca un mecanico
+	 * @param id del mecanico
+	 */
 	public FindMechanicById(Long id) {
 		this.id = id;
 	}

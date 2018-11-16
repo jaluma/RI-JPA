@@ -13,6 +13,10 @@ public class UpdateMechanic implements Command<Void> {
 	private MechanicDto dto;
 	private MecanicoRepository repo = Factory.repository.forMechanic();
 
+	/**
+	 * Contructor que permite actualizar un mecanico
+	 * @param dto con los valores a actualizar
+	 */
 	public UpdateMechanic(MechanicDto dto) {
 		this.dto = dto;
 	}

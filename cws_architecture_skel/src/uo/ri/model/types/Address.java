@@ -12,6 +12,12 @@ public class Address {
 	Address() {
 	}
 
+	/**
+	 * Constructor de la entity direccion
+	 * @param street calle
+	 * @param city ciudad
+	 * @param zipCode codigo postal
+	 */
 	public Address(String street, String city, String zipCode) {
 		super();
 		this.street = street;
@@ -19,18 +25,34 @@ public class Address {
 		this.zipCode = zipCode;
 	}
 
+	/**
+	 * Getter de la calle
+	 * @return la calle
+	 */
 	public String getStreet() {
 		return street;
 	}
 
+	/**
+	 * Getter de la ciudad
+	 * @return la ciudad
+	 */
 	public String getCity() {
 		return city;
 	}
 
+	/**
+	 * Getter del CP
+	 * @return el CP
+	 */
 	public String getZipCode() {
 		return zipCode;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -41,6 +63,10 @@ public class Address {
 		return result;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -68,6 +94,10 @@ public class Address {
 		return true;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Address [street=" + street + ", city=" + city + ", zipCode=" + zipCode + "]";

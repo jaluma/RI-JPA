@@ -15,6 +15,10 @@ public class FindPayrollsByMechanicId implements Command<List<PayrollDto>> {
 	private Long mechanicId;
 	private NominaRepository repo = Factory.repository.forNomina();
 
+	/**
+	 * Constructor que busca las nominas a partir de un mecanico 
+	 * @param mechanicId del mecanico
+	 */
 	public FindPayrollsByMechanicId(Long mechanicId) {
 		this.mechanicId = mechanicId;
 	}

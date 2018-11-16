@@ -23,29 +23,62 @@ public class Contract {
 
 	private Set<Payroll> payrolls = new HashSet<>();
 
+	/*
+	 * Constructor usado por el mapper
+	 */
 	Contract() {
 	}
 
+	/**
+	 * Constructor de contrato
+	 * @param mecanico del contrato
+	 * @param startDate del contrato
+	 */
 	public Contract(Mecanico mecanico, Date startDate) {
 		this.mechanic = mecanico;
 		setStartDate(startDate);
 		status = ContratoStatus.ACTIVE;
 		Association.Hire.link(this, mecanico);
 	}
-	
-	public Contract(Mecanico mechanic, Date date, double baseSalary) {
-		this(mechanic, date);
-		checkSalary(baseSalary);
-		this.baseSalaryPerYear = baseSalary;
+
+	/**
+	 * Constructor de contrato
+	 * @param mecanico del contrato
+	 * @param startDate del contrato
+	 * @param baseSalary del contrato
+	 */
+	public Contract(Mecanico mechanic, Date startDate, double baseSalary) {
+		this(mechanic, startDate);
+		setBaseSalaryPerYear(baseSalary);
 	}
 
-	public Contract(Mecanico mechanic, Date startDate, Date endDate, double baseSalary) {
+	/**
+	 * Constructor de contrato
+	 * @param mecanico del contrato
+	 * @param startDate del contrato
+	 * @param endDate del contrato
+	 * @param baseSalary del contrato
+	 */
+	public Contract(Mecanico mechanic, Date startDate, Date endDate,
+			double baseSalary) {
 		this(mechanic, startDate, baseSalary);
 		setEndDate(endDate);
 	}
 
-	public Contract(Mecanico m, Date startDate, Date endDate, double yearBaseSalary, double compensation,
-			ContratoStatus status, ContractCategory c, ContractType t) {
+	/**
+	 * Constructor de contrato
+	 * @param mecanico del contrato
+	 * @param startDate del contrato
+	 * @param endDate del contrato
+	 * @param yearBaseSalary del contrato
+	 * @param compensation del contrato
+	 * @param status del contrato
+	 * @param c categoria del contrato
+	 * @param t tipo del contrato
+	 */
+	public Contract(Mecanico m, Date startDate, Date endDate,
+			double yearBaseSalary, double compensation, ContratoStatus status,
+			ContractCategory c, ContractType t) {
 		this(m, startDate, endDate, yearBaseSalary);
 		this.compensation = compensation;
 		this.status = status;
@@ -55,78 +88,181 @@ public class Contract {
 		Association.Categorize.link(this, contractCategory);
 	}
 
-	private void checkSalary(double baseSalary) {
-		if (baseSalary < 0) {
-			throw new IllegalArgumentException("El salario base no puede ser negativo");
-		}
-	}
-
+	/**
+	 * Getter de id
+	 * @return id del contrato
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * Getter de fecha inicio
+	 * @return fecha inicio del contrato
+	 */
 	public Date getStartDate() {
 		return new Date(startDate.getTime());
 	}
 
+	/**
+	 * Getter de fecha fin
+	 * @return fecha fin del contrato
+	 */
 	public Date getEndDate() {
 		return new Date(endDate.getTime());
 	}
 
+	/**
+	 * Getter de salario base por año
+	 * @return salario base por año del contrato
+	 */
 	public double getBaseSalaryPerYear() {
 		return baseSalaryPerYear;
 	}
 
+	/**
+	 * Getter de compensacion
+	 * @return compensacion del contrato
+	 */
 	public double getCompensation() {
 		setCompensation();
 		return compensation;
 	}
 
+	/**
+	 * Getter de estado
+	 * @return estado del contrato
+	 */
 	public ContratoStatus getStatus() {
 		return status;
 	}
 
+	/**
+	 * Getter de categoria de contrato
+	 * @return categoria de contrato del contrato
+	 */
 	public ContractCategory getContractCategory() {
 		return contractCategory;
 	}
 
+	/**
+	 * Getter de tipo de contrato
+	 * @return tipo de contrato del contrato
+	 */
 	public ContractType getContractType() {
 		return contractType;
 	}
 
+	/**
+	 * Getter de mecanico
+	 * @return mecanico del contrato
+	 */
 	public Mecanico getMechanic() {
 		return mechanic;
 	}
 
+	/**
+	 * Getter de nominas
+	 * @return nominas del contrato
+	 */
 	public Set<Payroll> getPayrolls() {
 		return new HashSet<>(payrolls);
 	}
 
-	public void setBaseSalaryPerYear(double baseSalaryPerYear) {
-		this.baseSalaryPerYear = baseSalaryPerYear;
+	/**
+	 * Setter de compensacion
+	 */
+	private void setCompensation() {
+		int days = Dates.diffDays(endDate, startDate);
+		if (days >= 364) {
+			this.compensation = contractType.getCompensationDays()
+					* baseSalaryPerYear / 365;
+		}
 	}
 
+	/**
+	 * Setter de salario base anual
+	 * @param baseSalaryPerYear a asignar
+	 */
+	public void setBaseSalaryPerYear(double baseSalaryPerYear) {
+		checkSalary(baseSalaryPerYear);
+		this.baseSalaryPerYear = baseSalaryPerYear;
+	}
+	
+	/**
+	 * Comprueba que el salario no sea negativo
+	 * @param baseSalary a comprobar
+	 */
+	private void checkSalary(double baseSalary) {
+		if (baseSalary < 0) {
+			throw new IllegalArgumentException(
+					"El salario base no puede ser negativo");
+		}
+	}
+
+	/**
+	 * Setter de compensacion
+	 * @param compensacion a asignar
+	 */
 	public void setCompensation(double compensation) {
 		this.compensation = compensation;
 	}
 
-	void _setContractCategory(ContractCategory category) {
-		contractCategory = category;
+	/**
+	 * Setter de fecha de incio
+	 * @param fecha de incio a asignar
+	 */
+	private void setStartDate(Date startDate) {
+		if (startDate != null)
+			this.startDate = Dates.firstDayOfMonth(startDate);
 	}
 
-	void _setContractType(ContractType type) {
-		contractType = type;
-	}
-
-	void _setMechanic(Mecanico mechanic) {
-		this.mechanic = mechanic;
-	}
-
+	/**
+	 * Setter de fecha de fin
+	 * @param fecha de fin a asignar
+	 */
 	public void setEndDate(Date endDate) {
 		if (endDate != null)
 			this.endDate = Dates.lastDayOfMonth(endDate);
 	}
 
+	/**
+	 * Getter de nominas
+	 * @return set de nominas
+	 */
+	Set<Payroll> _getPayrolls() {
+		return payrolls;
+	}
+
+	/**
+	 * Setter de mecanico usado por asociacion
+	 * @param mecanico a asignar
+	 */
+	void _setMechanic(Mecanico mechanic) {
+		this.mechanic = mechanic;
+	}
+
+	/**
+	 * Setter de categoria de contratos usado por asociacion
+	 * @param categoria de contratos a asignar
+	 */
+	void _setContractCategory(ContractCategory category) {
+		contractCategory = category;
+	}
+
+	/**
+	 * Setter de tipo de contratos usado por asociacion
+	 * @param tipo de contratos a asignar
+	 */
+	void _setContractType(ContractType type) {
+		contractType = type;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -138,6 +274,11 @@ public class Contract {
 		return result;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -160,15 +301,34 @@ public class Contract {
 		return true;
 	}
 
-	private void setStartDate(Date startDate) {
-		if (startDate != null)
-			this.startDate = Dates.firstDayOfMonth(startDate);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Contract [startDate=" + startDate + ", endDate=" + endDate
+				+ ", baseSalaryPerYear=" + baseSalaryPerYear + ", compensation="
+				+ compensation + ", status=" + status + ", contractCategory="
+				+ contractCategory + ", contractType=" + contractType
+				+ ", mechanic=" + mechanic + ", payrolls=" + payrolls + "]";
 	}
 
+	/**
+	 * Devuelve si un contrato es finalizado
+	 * 
+	 * @return true si esta finalizado, false en otro caso
+	 */
 	public boolean isFinished() {
 		return status == ContratoStatus.FINISHED;
 	}
 
+	/**
+	 * Devuelve el valor de irpf
+	 * 
+	 * @return el valor porcentual del irpf
+	 */
 	public double getIrpfPercent() {
 		if (baseSalaryPerYear < 12000) {
 			return 0;
@@ -185,48 +345,37 @@ public class Contract {
 		}
 	}
 
+	/**
+	 * Devuelve la ultima nomina
+	 * @return la ultima factura o null si no hay
+	 */
 	public Payroll getLastPayroll() {
 		if (payrolls.size() == 0) {
 			return null;
 		}
 
-		return payrolls.stream().sorted((o1, o2) -> o2.getDate().compareTo(o1.getDate())).findFirst().get();
+		return payrolls.stream()
+				.sorted((o1, o2) -> o2.getDate().compareTo(o1.getDate()))
+				.findFirst().get();
 	}
 
+	/**
+	 * Marca como finalizado el contrato
+	 * @param endDate fecha de fin de contratos
+	 */
 	public void markAsFinished(Date endDate) {
 		if (status != null && status.equals(ContratoStatus.FINISHED)) {
 			throw new IllegalStateException("El contrato ya esta finalizado.");
 		}
 
 		if (Dates.isAfter(startDate, endDate)) {
-			throw new IllegalArgumentException("La fecha debe de ser posterior al inicio del contrato");
+			throw new IllegalArgumentException(
+					"La fecha debe de ser posterior al inicio del contrato");
 		}
 
 		setEndDate(endDate);
 		this.status = ContratoStatus.FINISHED;
 
 	}
-
-	Set<Payroll> _getPayrolls() {
-		return payrolls;
-	}
-
-	private void setCompensation() {
-		int days = Dates.diffDays(endDate, startDate);
-		if (days >= 364) {
-			this.compensation = contractType.getCompensationDays() * baseSalaryPerYear / 365;
-		}
-	}
-
-	@Override
-	public String toString() {
-		return "Contract [startDate=" + startDate + ", endDate=" + endDate
-				+ ", baseSalaryPerYear=" + baseSalaryPerYear + ", compensation="
-				+ compensation + ", status=" + status + ", contractCategory="
-				+ contractCategory + ", contractType=" + contractType
-				+ ", mechanic=" + mechanic + ", payrolls=" + payrolls + "]";
-	}
-	
-	
 
 }

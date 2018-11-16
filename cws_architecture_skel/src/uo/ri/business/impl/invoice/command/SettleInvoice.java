@@ -21,6 +21,11 @@ public class SettleInvoice implements Command<Void> {
 	private MedioPagoRepository repoMedioPago = Factory.repository.forMedioPago();
 	private CargoRepository repoCargo = Factory.repository.forCargo();
 
+	/**
+	 * Contructor que permite añadir los diferentes cargos 
+	 * @param idInvoiceDto de la factura
+	 * @param cargos la lista de cargos 
+	 */
 	public SettleInvoice(Long idInvoiceDto, Map<Long, Double> cargos) {
 		this.idInvoiceDto = idInvoiceDto;
 		this.cargos = cargos;

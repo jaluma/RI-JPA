@@ -12,6 +12,12 @@ public class DeleteContractType implements Command<Void> {
 	private Long idTipo;
 	private TipoContratoRepository repo = Factory.repository.forTipoContrato();
 
+	/**
+	 * Constructor que permite borrar un tipo de contrato
+	 * 
+	 * @param idTipo
+	 *            del tipo a borrar
+	 */
 	public DeleteContractType(Long idTipo) {
 		this.idTipo = idTipo;
 	}
@@ -30,11 +36,20 @@ public class DeleteContractType implements Command<Void> {
 		return null;
 	}
 
+	/**
+	 * Comprueba si el tipo que se permite borrar
+	 * 
+	 * @param t
+	 *            del tipo a comproabr si se puede borrar
+	 * @throws BusinessException
+	 *             en caso de que no exista o haya mecanicos con contratos
+	 *             activos
+	 */
 	private void checkCanBeDelete(ContractType t) throws BusinessException {
 		BusinessCheck.isNotNull(t, "El tipo de contrato no existe.");
 		BusinessCheck.isTrue(t.getContracts().size() <= 0,
 				"No se puede borrar el tipo de contrato al tener "
-				+ "contratos pertenecientes a este tipo.");
+						+ "contratos pertenecientes a este tipo.");
 	}
 
 }

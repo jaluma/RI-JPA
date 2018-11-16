@@ -13,6 +13,10 @@ public class FindPayMethodsforInvoice implements Command<List<PaymentMeanDto>> {
 	private Long idInvoice;
 	private MedioPagoRepository repoMedio = Factory.repository.forMedioPago();
 
+	/**
+	 * Constructor que permite encontrar metodos de pago de una factura
+	 * @param idInvoiceDto de la factura
+	 */
 	public FindPayMethodsforInvoice(Long idInvoiceDto) {
 		this.idInvoice = idInvoiceDto;
 	}

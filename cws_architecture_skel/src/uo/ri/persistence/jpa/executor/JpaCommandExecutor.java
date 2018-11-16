@@ -10,6 +10,10 @@ import uo.ri.persistence.jpa.util.Jpa;
 
 public class JpaCommandExecutor implements CommandExecutor {
 
+	/*
+	 * 	@Override(non-Javadoc)
+	 * @see uo.ri.business.impl.CommandExecutor#execute(uo.ri.business.impl.Command)
+	 */
 	@Override
 	public <T> T execute(Command<T> cmd) throws BusinessException {
 		EntityManager mapper = Jpa.createEntityManager();

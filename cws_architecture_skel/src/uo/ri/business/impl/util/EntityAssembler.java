@@ -16,10 +16,20 @@ import uo.ri.model.types.ContratoStatus;
 
 public class EntityAssembler {
 
+	/**
+	 * Convierte el dto en un mecanico
+	 * @param dto
+	 * @return un mecanico
+	 */
 	public static Mecanico toEntity(MechanicDto dto) {
 		return new Mecanico(dto.dni, dto.name, dto.surname);
 	}
 
+	/**
+	 * Convierte el dto en un cliente
+	 * @param dto
+	 * @return un cliente
+	 */
 	public static Cliente toEntity(ClientDto dto) {
 		Cliente c = new Cliente(dto.dni, dto.name, dto.surname);
 		Address addr = new Address(dto.addressStreet, dto.addressCity, dto.addressZipcode);
@@ -29,6 +39,11 @@ public class EntityAssembler {
 		return c;
 	}
 
+	/**
+	 * Convierte el dto en un contrato
+	 * @param dto
+	 * @return un contrato
+	 */
 	public static Contract toEntity(ContractDto dto) {
 		Mecanico m = Factory.repository.forMechanic().findByDni(dto.dni);
 		ContractCategory category = Factory.repository.forCategoriaContrato().findById(dto.categoryId);
@@ -40,14 +55,22 @@ public class EntityAssembler {
 		return c;
 	}
 
+	/**
+	 * Convierte el dto en una categoria de contrato
+	 * @param dto
+	 * @return una categoria de contrato
+	 */
 	public static ContractCategory toEntity(ContractCategoryDto dto) {
-		ContractCategory category = new ContractCategory(dto.name, dto.trieniumSalary, dto.productivityPlus);
-		return category;
+		return new ContractCategory(dto.name, dto.trieniumSalary, dto.productivityPlus);
 	}
 
+	/**
+	 * Convierte el dto en un tipo de contrato
+	 * @param dto
+	 * @return un tipo de contrato
+	 */
 	public static ContractType toEntity(ContractTypeDto dto) {
-		ContractType type = new ContractType(dto.name, dto.compensationDays);
-		return type;
+		return new ContractType(dto.name, dto.compensationDays);
 	}
 
 }

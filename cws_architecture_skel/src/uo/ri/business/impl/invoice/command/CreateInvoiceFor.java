@@ -18,6 +18,10 @@ public class CreateInvoiceFor implements Command<InvoiceDto> {
 	private AveriaRepository repoAveria = Factory.repository.forAveria();
 	private FacturaRepository repoFactura = Factory.repository.forFactura();
 
+	/**
+	 * Constructor para crear facturas para unas averia
+	 * @param idsAveria lista con las averia
+	 */
 	public CreateInvoiceFor(List<Long> idsAveria) {
 		this.idsAveria = idsAveria;
 	}

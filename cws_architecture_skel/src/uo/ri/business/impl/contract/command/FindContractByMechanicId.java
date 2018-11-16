@@ -14,6 +14,10 @@ public class FindContractByMechanicId implements Command<List<ContractDto>> {
 	private Long id;
 	private ContratoRepository repoContrato = Factory.repository.forContrato();
 
+	/**
+	 * Constrcutor que permite encontrar un contrato a partir del ID de un mecánico
+	 * @param id del mecanico
+	 */
 	public FindContractByMechanicId(Long id) {
 		this.id = id;
 	}

@@ -12,6 +12,10 @@ public class FindInvoice implements Command<InvoiceDto> {
 	private Long numero;
 	private FacturaRepository repoFactura = Factory.repository.forFactura();
 
+	/**
+	 * Constructor para encontrar una factura
+	 * @param numero de la factura
+	 */
 	public FindInvoice(Long numero) {
 		this.numero = numero;
 	}

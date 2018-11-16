@@ -14,6 +14,10 @@ public class AddMechanic implements Command<Void> {
 	private MechanicDto dto;
 	private MecanicoRepository repo = Factory.repository.forMechanic();
 
+	/**
+	 * Constructor que permite añadir un mecanico
+	 * @param mecanico a añadir
+	 */
 	public AddMechanic(MechanicDto mecanico) {
 		this.dto = mecanico;
 	}
@@ -31,9 +35,14 @@ public class AddMechanic implements Command<Void> {
 		return null;
 	}
 
+	/**
+	 * Comprueba que no exista el cliente ya
+	 * @param dni del cliente
+	 * @throws BusinessException en caso de que exista
+	 */
 	private void checkUniqueDni(String dni) throws BusinessException {
 		Mecanico m = repo.findByDni(dto.dni);
-		BusinessCheck.isNull(m, "El mecánico no existe.");
+		BusinessCheck.isNull(m, "El mecánico existe.");
 	}
 
 }

@@ -14,6 +14,10 @@ public class FindRepairsByClient implements Command<List<BreakdownDto>> {
 	private String dni;
 	private AveriaRepository repoAveria = Factory.repository.forAveria();
 
+	/**
+	 * Constructor que busca las reparacion de un cliente
+	 * @param dni del cliente
+	 */
 	public FindRepairsByClient(String dni) {
 		this.dni = dni;
 	}

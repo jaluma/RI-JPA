@@ -12,10 +12,19 @@ public class Cargo {
 	private MedioPago medioPago;
 	private double importe = 0.0;
 
+	/*
+	 * Constructor usado por el mapper
+	 */
 	Cargo() {
 
 	}
 
+	/**
+	 * Constructor de cargo
+	 * @param factura del cargo
+	 * @param medioPago del cargo
+	 * @param importe del cargo
+	 */
 	public Cargo(Factura factura, MedioPago medioPago, double importe) {
 		this.factura = factura;
 		checkParameters(medioPago, importe);
@@ -25,6 +34,11 @@ public class Cargo {
 		Association.Cargar.link(factura, medioPago, this);
 	}
 
+	/**
+	 * Comprueba que los parametros sena correctos
+	 * @param medioPago isntancia
+	 * @param importe del cargo
+	 */
 	private void checkParameters(MedioPago medioPago, double importe) {
 		if (medioPago instanceof TarjetaCredito) {
 			checkValidez(((TarjetaCredito) medioPago).validez);
@@ -34,6 +48,11 @@ public class Cargo {
 		}
 	}
 
+	/**
+	 * Comprueba que el disponible es menor que el importe
+	 * @param disponible del medio de pago
+	 * @param importe del cargo
+	 */
 	private void checkImporte(double disponible, double importe) {
 		if (importe > disponible) {
 			throw new IllegalStateException("El importe del bono es inferior");
@@ -41,28 +60,14 @@ public class Cargo {
 
 	}
 
+	/**
+	 * Comprueba que la fecha sea valida
+	 * @param validez de la tarjeta de credito
+	 */
 	private void checkValidez(Date validez) {
 		if (Dates.isBefore(validez, Dates.today())) {
 			throw new IllegalStateException("La fecha de validez es incorrecta");
 		}
-
-	}
-
-	/**
-	 * Anula (retrocede) este cargo de la factura y el medio de pago Solo se puede
-	 * hacer si la factura no está abonada Decrementar el acumulado del medio de
-	 * pago Desenlazar el cargo de la factura y el medio de pago
-	 * 
-	 * @throws IllegalStateException
-	 *             if the invoice is already settled
-	 */
-	public void rewind() {
-		if (factura.getStatus().equals(FacturaStatus.ABONADA)) {
-			throw new IllegalStateException("No se puede retroceder ");
-		}
-
-		medioPago.actualizarAcumulado(-importe);
-		Association.Cargar.unlink(this);
 
 	}
 
@@ -90,6 +95,10 @@ public class Cargo {
 		return id;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -100,6 +109,10 @@ public class Cargo {
 		return result;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -122,11 +135,31 @@ public class Cargo {
 		return true;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Cargo [factura=" + factura + ", medioPago="
 				+ medioPago + ", importe=" + importe + "]";
 	}
 	
-	
+	/**
+	 * Anula (retrocede) este cargo de la factura y el medio de pago Solo se puede
+	 * hacer si la factura no está abonada Decrementar el acumulado del medio de
+	 * pago Desenlazar el cargo de la factura y el medio de pago
+	 * 
+	 * @throws IllegalStateException
+	 *             if the invoice is already settled
+	 */
+	public void rewind() {
+		if (factura.getStatus().equals(FacturaStatus.ABONADA)) {
+			throw new IllegalStateException("No se puede retroceder ");
+		}
+
+		medioPago.actualizarAcumulado(-importe);
+		Association.Cargar.unlink(this);
+
+	}
 }

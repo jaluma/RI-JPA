@@ -13,6 +13,10 @@ public class FindContractCategoryById implements Command<ContractCategoryDto> {
 	private Long id;
 	private CategoriaContratoRepository repo = Factory.repository.forCategoriaContrato();
 
+	/**
+	 * Contructor que permite encontrar una categoria de contratos por medio de un id
+	 * @param id de la categoria de contrato
+	 */
 	public FindContractCategoryById(Long id) {
 		this.id = id;
 	}

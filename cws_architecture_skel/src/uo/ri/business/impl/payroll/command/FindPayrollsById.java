@@ -13,6 +13,10 @@ public class FindPayrollsById implements Command<PayrollDto> {
 	private Long id;
 	private NominaRepository repo = Factory.repository.forNomina();
 
+	/**
+	 * Constructor que permite encontrar nominas
+	 * @param id de la nomina
+	 */
 	public FindPayrollsById(Long id) {
 		this.id = id;
 	}

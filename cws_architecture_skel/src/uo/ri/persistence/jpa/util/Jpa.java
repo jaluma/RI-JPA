@@ -20,16 +20,27 @@ public class Jpa {
 	private static volatile EntityManagerFactory emf = null;
 	private static ThreadLocal<EntityManager> emThread = new ThreadLocal<EntityManager>();
 
+	/**
+	 * Crea la EntityManager del mapeador
+	 * @return la instancia de la EntityManager
+	 */
 	public static EntityManager createEntityManager() {
 		EntityManager entityManager = getEmf().createEntityManager();
 		emThread.set(entityManager);
 		return entityManager;
 	}
 
+	/**
+	 * Recupera el manager ya instanciado
+	 * @return instancia de la EntityManager
+	 */
 	public static EntityManager getManager() {
 		return emThread.get();
 	}
 
+	/**
+	 * Cierra la conexión EntityManager
+	 */
 	public synchronized static void close() {
 		if (emf == null)
 			return;
@@ -39,6 +50,10 @@ public class Jpa {
 		emf = null;
 	}
 
+	/**
+	 * Obtiene una instancia de la Factorai de EntityManager
+	 * @return una instanca
+	 */
 	private static EntityManagerFactory getEmf() {
 		if (emf == null) {
 			// Avoids the remote possibility of multiple initialization in
@@ -55,6 +70,10 @@ public class Jpa {
 		return emf;
 	}
 
+	/**
+	 * Carga la información del mapeador 
+	 * @return un string con la información leida
+	 */
 	private static String loadPersistentUnitName() {
 		try {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();

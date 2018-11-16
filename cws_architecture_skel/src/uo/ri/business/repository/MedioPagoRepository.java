@@ -13,6 +13,11 @@ public interface MedioPagoRepository extends Repository<MedioPago> {
 	 */
 	List<MedioPago> findPaymentMeansByClientId(Long id);
 
+	/**
+	 * Busca los metodos de pago permitidos en una factura
+	 * @param idInvoice de la factura
+	 * @return lista de medios d epago 
+	 */
 	List<MedioPago> FindPayMethodsforInvoice(Long idInvoice);
 
 }

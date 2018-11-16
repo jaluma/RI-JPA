@@ -12,6 +12,10 @@ public class FindContractById implements Command<ContractDto> {
 	private Long id;
 	private ContratoRepository repoContrato = Factory.repository.forContrato();
 
+	/**
+	 * Constructor que permite encontrar un contrato a partir de su ID
+	 * @param id del contrato
+	 */
 	public FindContractById(Long id) {
 		this.id = id;
 	}

@@ -10,14 +10,22 @@ import uo.ri.model.ContractCategory;
 public class DeleteContractCategory implements Command<Void> {
 
 	private Long idCategoria;
-	private CategoriaContratoRepository repo = Factory.repository.forCategoriaContrato();
+	private CategoriaContratoRepository repo = Factory.repository
+			.forCategoriaContrato();
 
+	/**
+	 * Borra una categoria de contrato
+	 * 
+	 * @param idCategoria
+	 *            a borrar
+	 */
 	public DeleteContractCategory(Long idCategoria) {
 		this.idCategoria = idCategoria;
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see uo.ri.business.impl.Command#execute()
 	 */
 	@Override
@@ -29,6 +37,14 @@ public class DeleteContractCategory implements Command<Void> {
 		return null;
 	}
 
+	/**
+	 * Comprueba si se puede borrar la categoira
+	 * 
+	 * @param c
+	 *            la categoria
+	 * @throws BusinessException
+	 *             si hay contratos con ese tipo de categoria o si no existe
+	 */
 	private void checkCanBeDelete(ContractCategory c) throws BusinessException {
 		BusinessCheck.isNotNull(c, "La categoria no existe.");
 		BusinessCheck.isTrue(c.getContracts().size() <= 0,

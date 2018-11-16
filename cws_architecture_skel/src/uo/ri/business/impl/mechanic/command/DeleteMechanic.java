@@ -12,12 +12,19 @@ public class DeleteMechanic implements Command<Void> {
 	private Long idMecanico;
 	private MecanicoRepository repo = Factory.repository.forMechanic();
 
+	/**
+	 * Constructor que permite borrar un mecanico
+	 * 
+	 * @param idMecanico
+	 *            del mecanico
+	 */
 	public DeleteMechanic(Long idMecanico) {
 		this.idMecanico = idMecanico;
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see uo.ri.business.impl.Command#execute()
 	 */
 	@Override
@@ -29,6 +36,15 @@ public class DeleteMechanic implements Command<Void> {
 		return null;
 	}
 
+	/**
+	 * Comprueba que el mecanico se puede borrar
+	 * 
+	 * @param m
+	 *            mecanico
+	 * @throws BusinessException
+	 *             el mecanico no existe, tiene intervenciones o tiene averias
+	 *             asignadas
+	 */
 	private void checkCanBeDelete(Mecanico m) throws BusinessException {
 		BusinessCheck.isNotNull(m, "El mecánico no existe.");
 		BusinessCheck.isTrue(m.getIntervenciones().size() <= 0,

@@ -13,6 +13,10 @@ public class UpdateContractCategory implements Command<Void> {
 	private ContractCategoryDto dto;
 	private CategoriaContratoRepository repo = Factory.repository.forCategoriaContrato();
 
+	/**
+	 * Contructor que permite actualizar una categoria de contratos
+	 * @param dto con los valores que se quieren actualizar
+	 */
 	public UpdateContractCategory(ContractCategoryDto dto) {
 		this.dto = dto;
 	}
@@ -33,10 +37,21 @@ public class UpdateContractCategory implements Command<Void> {
 		return null;
 	}
 	
+	/**
+	 * Comprueba si la categoria existe
+	 * @param c categoria que se pide
+	 * @throws BusinessException en caso de que la categoria no exista
+	 */
 	private void checkExistCategory(ContractCategory c) throws BusinessException {
 		BusinessCheck.isTrue(c != null, "La categoria no existe");
 	}
 	
+	/**
+	 * Comprueba si la prodcutividad o el trienio es negativo
+	 * @param productivityPlus a comprobar
+	 * @param trieniumSalary a comprobar
+	 * @throws BusinessException en caso de que alguno de los dos parametros sea negativo
+	 */
 	private void checkNegativeValues(double productivityPlus,
 			double trieniumSalary) throws BusinessException {
 		BusinessCheck.isFalse(productivityPlus < 0, "La productividad no puede ser negativa.");

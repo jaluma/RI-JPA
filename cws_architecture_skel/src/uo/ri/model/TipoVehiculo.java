@@ -11,52 +11,90 @@ public class TipoVehiculo {
 
 	private Set<Vehiculo> vehiculos = new HashSet<>();
 
+	/*
+	 * Constructor usado por el mapper
+	 */
 	TipoVehiculo() {
 	}
 
+	/**
+	 * Constructor de tipo de vehiculo
+	 * @param nombre del tipo
+	 */
 	public TipoVehiculo(String nombre) {
 		this.nombre = nombre;
 	}
 
+	/**
+	 * Constructor de tipo de vehiculo
+	 * @param nombre del tipo
+	 * @param precioHora del tipo
+	 */
 	public TipoVehiculo(String nombre, double precioHora) {
 		this(nombre);
 		this.precioHora = precioHora;
 	}
 
+	/**
+	 * Getter de vehiculo para la asociacion
+	 * @return set de vehiculos
+	 */
 	Set<Vehiculo> _getVehiculo() {
 		return vehiculos;
 	}
 
+	/**
+	 * Getter de vehiculos
+	 * @return set de vehiculos
+	 */
 	public Set<Vehiculo> getVehiculos() {
 		return new HashSet<>(vehiculos);
 	}
 
+	/**
+	 * Getter de ID
+	 * @return id de vehiculo
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * Getter de nombre
+	 * @return nombre de vehiculo
+	 */
 	public String getNombre() {
 		return nombre;
 	}
 
+	/**
+	 * Setter de nombre
+	 * @param nombre de vehiculo
+	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
+	/**
+	 * Getter de precio hora
+	 * @return precio hora de vehiculo
+	 */
 	public double getPrecioHora() {
 		return precioHora;
 	}
 
+	/**
+	 * Setter de precio hora
+	 * @param precio hora de vehiculo
+	 */
 	public void setPrecioHora(double precioHora) {
 		this.precioHora = precioHora;
 	}
 
-	@Override
-	public String toString() {
-		return "TipoVehiculo [nombre=" + nombre + ", precioHora=" + precioHora
-				+ ", vehiculos=" + vehiculos + "]";
-	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -65,6 +103,10 @@ public class TipoVehiculo {
 		return result;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -80,6 +122,16 @@ public class TipoVehiculo {
 		} else if (!nombre.equals(other.nombre))
 			return false;
 		return true;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "TipoVehiculo [nombre=" + nombre + ", precioHora=" + precioHora
+				+ ", vehiculos=" + vehiculos + "]";
 	}
 
 }
