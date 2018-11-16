@@ -38,14 +38,14 @@ public class GeneratePayrolls implements Command<Integer> {
 				contrato = m.getLastContract();
 			}
 
-			Payroll existP = repoNomina.findByContractAndDate(contrato.getId(), finishMonth);
+			//Payroll existP = repoNomina.findByContractAndDate(contrato.getId(), finishMonth);
 
-			if (existP == null) {
+			//if (existP == null) {
 				double intervenciones = repoMecanico.getNumberInterventionsFromTo(m, startMonth, finishMonth);
 				Payroll payroll = new Payroll(contrato, Dates.today(), intervenciones);
 				repoNomina.add(payroll);
 				addCount++;
-			}
+			//}
 
 		}
 

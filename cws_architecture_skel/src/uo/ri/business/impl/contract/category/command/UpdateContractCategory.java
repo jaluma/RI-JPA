@@ -34,13 +34,13 @@ public class UpdateContractCategory implements Command<Void> {
 	}
 	
 	private void checkExistCategory(ContractCategory c) throws BusinessException {
-		BusinessCheck.isTrue(c == null, "La categoria no existe");
+		BusinessCheck.isTrue(c != null, "La categoria no existe");
 	}
 	
 	private void checkNegativeValues(double productivityPlus,
 			double trieniumSalary) throws BusinessException {
 		BusinessCheck.isFalse(productivityPlus < 0, "La productividad no puede ser negativa.");
-		BusinessCheck.isFalse(trieniumSalary < 0, "El salario del trienio no puede ser negativa.");
+		BusinessCheck.isFalse(trieniumSalary < 0, "El salario del trienio no puede ser negativo");
 	}
 
 }

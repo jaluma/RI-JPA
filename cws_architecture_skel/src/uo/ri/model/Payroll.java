@@ -27,9 +27,10 @@ public class Payroll {
 	}
 
 	public Payroll(Contract contract, Date date, double totalOfInterventions) {
-		Association.Payrolls.link(contract, this);
+		this.contract = contract;
 		setDate(date);
 		setProductivity(totalOfInterventions);
+		Association.Payrolls.link(contract, this);
 		setBaseSalary();
 		setExtraSalary();
 		setTrienium();
@@ -37,7 +38,7 @@ public class Payroll {
 		setGrossTotal();
 		setIrpf();
 		setDiscountTotal();
-		setNetoTotal();
+		setNetTotal();
 	}
 
 	private void setDate(Date date) {
@@ -99,7 +100,7 @@ public class Payroll {
 		this.contract = contract;
 	}
 
-	private void setNetoTotal() {
+	private void setNetTotal() {
 		this.netTotal = getGrossTotal() - getDiscountTotal();
 	}
 

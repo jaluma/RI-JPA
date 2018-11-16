@@ -11,6 +11,7 @@ import uo.ri.business.ServiceFactory;
 import uo.ri.business.VehicleReceptionService;
 import uo.ri.business.impl.contract.ContractCrudServiceImpl;
 import uo.ri.business.impl.contract.category.ContractCategoryCrudServiceImpl;
+import uo.ri.business.impl.contract.type.ContractTypeCrudServiceImpl;
 import uo.ri.business.impl.invoice.InvoiceServiceImpl;
 import uo.ri.business.impl.mechanic.MechanicCrudServiceImpl;
 import uo.ri.business.impl.payroll.PayrollServiceImpl;
@@ -68,7 +69,7 @@ public class BusinessFactory implements ServiceFactory {
 	 */
 	@Override
 	public ContractTypeCrudService forContractTypeCrud() {
-		throw new RuntimeException("Not yet implemented");
+		return new ContractTypeCrudServiceImpl();
 	}
 
 	/*

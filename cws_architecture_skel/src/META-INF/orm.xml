@@ -4,8 +4,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
   	version="2.0">
-
-	<package>uo.ri.model</package>
 	
 	<!-- Averia quieries --> 
 	<named-query name="Averia.findByIds">
@@ -105,13 +103,19 @@
 	</named-query>
 	
 	<!--  Categorias contratos queries -->
-	
-	
 	<named-query name="CategoriaContratos.findByName">
 		<query>
 			select c
 			from uo.ri.model.ContractCategory c
 			where c.name = ?1
+		</query>
+	</named-query>
+	
+	<named-query name="TipoContratos.findByName">
+		<query>
+			select t
+			from uo.ri.model.ContractType t
+			where t.name = ?1
 		</query>
 	</named-query>
 	
@@ -431,18 +435,6 @@
 				<column name="CONTRATO_ID"/>
 				<generated-value strategy="IDENTITY" />
 			</id>
-			
-			<!-- <basic name="mechanic">
-				<column name="CONTRATO_ID"/>
-			</basic>
-			
-			<basic name="contractType">
-				<column name="CONTRATO_ID"/>
-			</basic>
-			
-			<basic name="contractCategory">
-				<column name="CONTRATO_ID"/>
-			</basic> -->
 			
 			<basic name="startDate">
 				<column name="FECHA_INICIAL"/>

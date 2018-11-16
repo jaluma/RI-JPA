@@ -3,6 +3,7 @@ package uo.ri.business.impl.util;
 import uo.ri.business.dto.ClientDto;
 import uo.ri.business.dto.ContractCategoryDto;
 import uo.ri.business.dto.ContractDto;
+import uo.ri.business.dto.ContractTypeDto;
 import uo.ri.business.dto.MechanicDto;
 import uo.ri.conf.Factory;
 import uo.ri.model.Cliente;
@@ -42,6 +43,11 @@ public class EntityAssembler {
 	public static ContractCategory toEntity(ContractCategoryDto dto) {
 		ContractCategory category = new ContractCategory(dto.name, dto.trieniumSalary, dto.productivityPlus);
 		return category;
+	}
+
+	public static ContractType toEntity(ContractTypeDto dto) {
+		ContractType type = new ContractType(dto.name, dto.compensationDays);
+		return type;
 	}
 
 }

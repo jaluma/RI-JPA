@@ -21,7 +21,7 @@ public class ContractType {
 
 	public ContractType(String name, int compensationDays) {
 		this(name);
-		this.compensationDays = compensationDays;
+		setCompensation(compensationDays);
 	}
 
 	public Long getId() {
@@ -42,6 +42,10 @@ public class ContractType {
 
 	Set<Contract> _getContracts() {
 		return contracts;
+	}
+
+	public void setCompensation(int compensationDays) {
+		this.compensationDays = compensationDays;		
 	}
 
 }

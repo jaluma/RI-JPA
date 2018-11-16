@@ -13,8 +13,11 @@ public class CategoriaJpaRepository extends BaseRepository<ContractCategory> imp
 	 */
 	@Override
 	public ContractCategory findByName(String name) {
-		return Jpa.getManager().createNamedQuery("CategoriaContratos.findByName", ContractCategory.class)
-				.setParameter(1, name).getResultList().stream().findFirst().orElse(null);
+		return Jpa.getManager()
+				.createNamedQuery("CategoriaContratos.findByName",
+						ContractCategory.class)
+				.setParameter(1, name).getResultList().stream().findFirst()
+				.orElse(null);
 	}
 
 }
